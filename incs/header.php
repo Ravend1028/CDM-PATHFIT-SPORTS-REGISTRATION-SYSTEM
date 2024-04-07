@@ -14,7 +14,7 @@ session_start();
 <body>
 
   <!-- HEADER NAVBAR STARTS HERE -->
-  <nav class="navbar navbar-expand-md bg-light navbar- z-2 p-3 border border-black border-top-0 border-start-0 border-end-0">
+  <nav class="navbar navbar-expand-md bg-light navbar- z-2 p-4 border border-black border-top-0 border-start-0 border-end-0">
     <div class="container">
       <a href="#" class="navbar-brand">PATHFIT</a>
 
