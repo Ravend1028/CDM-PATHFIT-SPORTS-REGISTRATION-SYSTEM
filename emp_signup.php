@@ -1,8 +1,9 @@
 <?php include 'incs/header.php'; ?>
 
 <?php 
-  $username = $password = $email = $fullname = $hashedPassword = '';
-  $usernameErr = $passwordErr = $emailErr = $fullnameErr = '';
+  $username = $password = $email = $fullname = $hashedPassword = $empID = '';
+  $usernameErr = $passwordErr = $emailErr = $fullnameErr = 
+  $empIDErr = $IncorrectID = $serverErr = '';
 
   if(isset($_POST['submit'])) {
 
@@ -12,6 +13,16 @@
       $username = filter_input(
         INPUT_POST,
         'username',
+        FILTER_SANITIZE_FULL_SPECIAL_CHARS
+      );
+    }
+
+    if(empty($_POST['empID'])) {
+      $empIDErr = 'Employee ID is required';
+    } else {
+      $empID = filter_input(
+        INPUT_POST,
+        'empID',
         FILTER_SANITIZE_FULL_SPECIAL_CHARS
       );
     }
@@ -35,17 +46,30 @@
       $fullname = filter_input(INPUT_POST, 'fullname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     }
 
-    if (empty($usernameErr) && empty($passwordErr) && empty($emailErr) && empty($fullnameErr)) {
-      // add to database
-      $sql = "INSERT INTO accounts (username, password, fullname, email) VALUES ('$username', '$hashedPassword', '$fullname', '$email')";
-      if (mysqli_query($conn, $sql)) {
-        // success
-        echo "<script>alert('Account Created Successfully'); window.location='login.php';</script>";
-        //header('Location: login.php');
+    if (empty($usernameErr) && empty($passwordErr) && empty($emailErr) && empty($fullnameErr) && empty($empIDErr)) {
+      
+      $sql = "SELECT emp_code FROM emp_accounts";
+      $result = mysqli_query($conn, $sql);
+
+      if(mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $employeeID = $row['emp_code'];
+
+        if($empID == $employeeID) {
+          $sql = "INSERT INTO emp_accounts (username, password, fullname, email) VALUES ('$username', '$hashedPassword', '$fullname', '$email')";
+          if (mysqli_query($conn, $sql)) {
+            echo "<script>alert('Account Created Successfully'); window.location='emp_login.php';</script>";
+          } else {
+            echo 'Error: ' . mysqli_error($conn);
+          }
+        } else {
+          $IncorrectID = 'Incorrect Employee Code. Please try again.';
+        }
+
       } else {
-        // error
-        echo 'Error: ' . mysqli_error($conn);
+        $serverErr = 'Database not ready. Please try again later.';
       }
+      
     }
 
   }
@@ -65,6 +89,11 @@
                   <label for="username" class="form-label align-self-start ms-5 ps-1 ps-sm-4">Username</label>
                   <input type="text" class="form-control <?php echo !$usernameErr ?: 'is-invalid'; ?> w-75 mx-auto rounded-pill" name="username" placeholder="Enter your username">
                 </div>
+                <div class="mb-0 d-flex flex-column">
+                  <label for="empID" class="form-label align-self-start ms-5 ps-1 ps-sm-4">Employee Code</label>
+                  <input type="text" class="form-control <?php echo !$empIDErr ?: 'is-invalid'; ?> w-75 mx-auto rounded-pill" name="empID" placeholder="Enter employee code">
+                  <span class="text-danger m-2"><?php echo $IncorrectID ?></span>
+                </div>
                 <div class="mb-3 d-flex flex-column">
                   <label for="password" class="form-label align-self-start ms-5 ps-1 ps-sm-4">Password</label>
                   <input type="password" class="form-control <?php echo !$passwordErr ?: 'is-invalid'; ?> w-75 mx-auto rounded-pill" name="password" placeholder="Enter your password">
@@ -82,8 +111,9 @@
                 </div>
               </form>
               <hr>
-              <div class="mb-3">
-                <a href="login.php">Login</a>
+              <div class="mb-0">
+                <a href="emp_login.php">Login</a>
+                <span class="d-block text-danger m-2"><?php echo $serverErr?></span>
               </div>
             </div>
           </div>

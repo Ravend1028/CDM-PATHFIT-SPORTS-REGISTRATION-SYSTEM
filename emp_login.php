@@ -20,14 +20,11 @@
     if(empty($_POST['password'])) {
       $passwordErr = 'Password is required';
     } else {
-      //$password = password_hash($password, PASSWORD_DEFAULT);
-      //$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
       $password = $_POST["password"];
     }
 
     if (empty($usernameErr) && empty($passwordErr)) {
-      // search db
-      $sql = "SELECT password FROM accounts WHERE username = '$username'";
+      $sql = "SELECT password FROM emp_accounts WHERE username = '$username'";
       $result = mysqli_query($conn, $sql);
 
       if ($result) {
@@ -35,7 +32,6 @@
             $row = mysqli_fetch_assoc($result);
             $hashedPasswordFromDb = $row['password'];
     
-            // Verify the entered password with the hashed password from the database
             if (password_verify($password, $hashedPasswordFromDb)) {
               session_start();
               $_SESSION['username'] = $username;
@@ -45,7 +41,7 @@
             }
 
         } else {
-          $unrecognizedUser = 'Incorrect Username or Password';
+          $unrecognizedUser = 'User does not exist';
         }
       } else {
         echo 'Error: ' . mysqli_error($conn);
@@ -63,13 +59,13 @@
           <div class="card">
             <div class="card-body text-center">
               <div class="mb-4">
-                <h2>Student Login</h2>
+                <h2>Employee Login</h2>
               </div>
               <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
                 <div class="mb-1 d-flex flex-column">
                   <label for="username" class="form-label align-self-start ms-5 ps-1 ps-sm-4">Username</label>
                   <input type="text" class="form-control <?php echo !$unrecognizedUser ?: 'is-invalid'; ?> w-75 mx-auto rounded-pill" name="username" placeholder="Enter your username">
-                  <span class="text-danger m-2"><?php echo $unrecognizedUser ?></span>   
+                  <span class="text-danger m-2"><?php echo $unrecognizedUser ?></span>
                 </div>
                 <div class="mb-3 d-flex flex-column">
                   <label for="password" class="form-label align-self-start ms-5 ps-1 ps-sm-4">Password</label>
@@ -81,11 +77,11 @@
                 </div>
               </form>
               <div class="mb-3">
-                <a href="forgotPass.php">Forgot Password</a>
+                <a href="emp_forgotPass.php">Forgot Password</a>
               </div>
               <hr>
               <div class="mb-3">
-                <a href="signup.php">Create an Account</a>
+                <a href="emp_signup.php">Create an Account</a>
               </div>
             </div>
           </div>
