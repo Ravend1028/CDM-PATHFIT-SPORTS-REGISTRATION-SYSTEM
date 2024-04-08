@@ -1,3 +1,5 @@
+<?php include 'config/database.php'; ?>
+
 <?php 
 session_start();
 ?>
@@ -28,7 +30,7 @@ session_start();
       <div class="collapse navbar-collapse" id="navmenu">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a href="#" class="nav-link">Home</a>
+            <a href="/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/home.php" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">Announcement</a>
@@ -43,13 +45,13 @@ session_start();
               </li>
 
               <li class='nav-item'>
-                <a href='#' class='nav-link'>Logout</a>
+                <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/logout.php' class='nav-link'>Logout</a>
               </li>
               " ;
             } else {
               echo " 
               <li class='nav-item'>
-            <a href='#' class='nav-link'>Student Portal</a>
+            <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/login.php' class='nav-link'>Student Portal</a>
               </li>
               <li class='nav-item'>
                 <a href='#' class='nav-link'>Employee Portal</a>
