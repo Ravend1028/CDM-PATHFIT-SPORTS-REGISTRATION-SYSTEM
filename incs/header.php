@@ -15,9 +15,9 @@ session_start();
 <body>
 
   <!-- HEADER NAVBAR STARTS HERE -->
-  <nav class="navbar navbar-expand-md bg-light navbar- z-2 p-2 border border-black border-top-0 border-start-0 border-end-0">
+  <nav class="navbar navbar-expand-lg bg-warning navbar-light z-2 p-2 border border-black border-top-0 border-start-0 border-end-0">
     <div class="container">
-      <a href="#" class="navbar-brand"><img class="mx-2" src="images/CDM_LOGO.png" alt="cdm_logo" style="height: 60px;">Colegio De Muntinlupa</a>
+      <a href="#" class="navbar-brand"><img class="mx-2" src="images/CDM_LOGO.png" alt="cdm_logo" style="height: 50px;">Colegio De Muntinlupa</a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
       data-bs-target="#navmenu">
