@@ -15,7 +15,7 @@
   </div>
 
   <?php foreach ($events as $event): ?>
-    <section class="p-5 border border-black border-top-0 border-start-0 border-end-0">
+    <section class="p-3 border border-black border-top-0 border-start-0 border-end-0">
         <div class="container">
           <div class="row align-items-center justify-content-between">
             <div class="col-md">
@@ -31,23 +31,39 @@
                 $imgSrc = 'images/CDM_LOGO.png';
               }
               ?>
-              <img src="<?php echo $imgSrc; ?>" class="card-img-top" alt="" style="height: 300px;">
+              <img src="<?php echo $imgSrc; ?>" class="card-img-top" alt="" style="height: 250px;">
             </div>
             <div class="col-md p-5">
-              <div class="text-dark text-uppercase mt-2 mb-4">
+              <div class="text-dark text-uppercase mt-2 mb-3">
                 <?php echo $event['title']; ?>
               </div>
 
-              <div class="text-dark mt-2">
-                <?php $event['body']; ?>
+              <div class="text-dark mt-2 mb-3">
+                <?php echo $event['body']; ?>
               </div>
               
-              <div class="d-flex">
-                <button class="btn btn-dark btn-lg my-2" type="button">
-                  Register Now
-                  <i class="bi bi-chevron-right"></i>
-                </button>
-              </div>
+              <?php 
+                if(isset($_SESSION['username'])) {
+                  echo "
+                  <div class='d-flex'>
+                    <button class='btn btn-dark btn-md my-2' type='button'>
+                      Register Now
+                      <i class='bi bi-chevron-right'></i>
+                    </button>
+                  </div>
+                  ";
+                } else if(isset($_SESSION['emp_username'])) {
+                  echo "
+                  <div class='d-flex'>
+                    <button class='btn btn-dark btn-md my-2' type='button'>
+                      Remove Event
+                      <i class='bi bi-chevron-right'></i>
+                    </button>
+                  </div>
+                  ";
+                }
+              ?>
+              
             </div>
           </div>
         </div>

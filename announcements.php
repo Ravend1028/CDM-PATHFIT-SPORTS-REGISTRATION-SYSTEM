@@ -38,6 +38,7 @@
             </div>
 
             <div class="text-secondary text-center mt-2">
+              Published On: 
               <?php echo date_format(
               date_create($announcement['date_time']),
               'F j\, Y \- l \- g:ia  '

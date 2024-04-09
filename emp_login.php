@@ -34,7 +34,7 @@
     
             if (password_verify($password, $hashedPasswordFromDb)) {
               session_start();
-              $_SESSION['username'] = $username;
+              $_SESSION['emp_username'] = $username;
               header('Location: home.php');
             } else {
               $incorrectPw = 'Incorrect Username or Password';
@@ -65,7 +65,7 @@
                 <div class="mb-1 d-flex flex-column">
                   <label for="username" class="form-label align-self-start ms-5 ps-1 ps-sm-4">Username</label>
                   <input type="text" class="form-control <?php echo !$unrecognizedUser ?: 'is-invalid'; ?> w-75 mx-auto rounded-pill" name="username" placeholder="Enter your username">
-                  <span class="text-danger m-2"><?php echo $unrecognizedUser ?></span>
+                  <span class="text-danger m-2"><?php echo $incorrectPw ?></span>
                 </div>
                 <div class="mb-3 d-flex flex-column">
                   <label for="password" class="form-label align-self-start ms-5 ps-1 ps-sm-4">Password</label>

@@ -43,25 +43,38 @@ session_start();
             if(isset($_SESSION['username'])) {
               $user = $_SESSION['username'];
               echo " 
-              <li class='nav-item'>
-                <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/events.php' class='nav-link'>Events</a>
-              </li>
-              <li class='nav-item'>
-                <a href='#' class='nav-link'>$user</a>
-              </li>
-              <li class='nav-item'>
-                <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/logout.php' class='nav-link'>Logout</a>
-              </li>
-              " ;
+                <li class='nav-item'>
+                  <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/events.php' class='nav-link'>Events</a>
+                </li>
+                <li class='nav-item'>
+                  <a href='#' class='nav-link'>$user</a>
+                </li>
+                <li class='nav-item'>
+                  <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/logout.php' class='nav-link'>Logout</a>
+                </li>
+                " ;
+            } else if(isset($_SESSION['emp_username'])) {
+              $user = $_SESSION['emp_username'];
+              echo "
+                <li class='nav-item'>
+                  <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/events.php' class='nav-link'>Events</a>
+                </li>
+                <li class='nav-item'>
+                  <a href='admin_dashboard.php' class='nav-link'>$user</a>
+                </li>
+                <li class='nav-item'>
+                  <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/logout.php' class='nav-link'>Logout</a>
+                </li>
+                " ; 
             } else {
               echo " 
-              <li class='nav-item'>
-            <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/login.php' class='nav-link'>Student Portal</a>
-              </li>
-              <li class='nav-item'>
-                <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/emp_login.php' class='nav-link'>Employee Portal</a>
-              </li>
-              ";
+                <li class='nav-item'>
+                  <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/login.php' class='nav-link'>Student Portal</a>
+                </li>
+                <li class='nav-item'>
+                  <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/emp_login.php' class='nav-link'>Employee Portal</a>
+                </li>
+                ";
             }
           ?>
 
