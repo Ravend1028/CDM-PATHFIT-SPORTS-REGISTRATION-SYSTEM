@@ -27,7 +27,7 @@
                 <p class="card-text">
                    Elevate your experience on the student portal with streamlined functionality. Our 'Registration Results' feature facilitates easy navigation, providing quick access to registration outcomes and ensuring efficient engagement with your academic or client services.
                 </p>
-                <a href="#" class="btn btn-primary">View Now<i class="bi bi-chevron-right"></i></a>
+                <a href="/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/reg_status.php" class="btn btn-primary">View Now<i class="bi bi-chevron-right"></i></a>
               </div>
             </div>
           </div>

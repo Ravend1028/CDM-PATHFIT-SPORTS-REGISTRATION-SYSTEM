@@ -12,7 +12,7 @@
   }
 ?>
 
-  <div id="products-container" class="container">
+  <div id="events-container" class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-4">
       <?php
       // Function to display products
@@ -21,7 +21,7 @@
       ?>
 
       <div class="col">
-        <div class="card my-3" style="height: 95%;" data-product-id="<?php echo $event['id']; ?>">
+        <div class="card my-3" style="height: 95%;" data-event-id="<?php echo $event['id']; ?>">
           <?php
             // Check if product image is availables
             if (!empty($event['image'])) {
@@ -38,7 +38,7 @@
           <div class="card-body text-center">
             <?php echo $event['title']; ?>
             <div class="text-dark mt-2"><?php echo $event['body']; ?></div>
-            <a href="/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/manage_user.php" class="btn btn-primary mt-2">Check Registration <i class="bi bi-chevron-right"></i></a>
+            <a href="/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/manage_user.php" class="check-registration btn btn-primary mt-2">Check Registration <i class="bi bi-chevron-right"></i></a>
           </div>
         </div>
       </div>

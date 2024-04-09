@@ -30,7 +30,7 @@ session_start();
       <div class="collapse navbar-collapse" id="navmenu">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a href="#" class="nav-link">Registration Status</a>
+            <a href="/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/reg_status.php" class="nav-link">Registration Status</a>
           </li>
           <li class='nav-item'>
             <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/home.php' class='nav-link'>Back</a>
