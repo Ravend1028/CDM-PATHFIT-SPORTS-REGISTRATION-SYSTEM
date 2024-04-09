@@ -6,7 +6,7 @@
   $announcements = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 
-  <div class="container d-flex flex-column justify-content-center align-items-center p-4">
+  <div id="announcement-container" class="container d-flex flex-column justify-content-center align-items-center p-4">
     <h2>Announcements</h2>
 
     <?php if (empty($announcements)): ?>
@@ -14,7 +14,7 @@
     <?php endif; ?>
 
     <?php foreach ($announcements as $announcement): ?>
-        <div class="card my-3 w-50">
+        <div class="card my-3 w-50" data-prod-id="<?php echo $announcement['id']; ?>">
           <?php
             // Check if product image is availables
             if (!empty($announcement['image'])) {
@@ -29,7 +29,7 @@
           ?>
           <img src="<?php echo $imgSrc; ?>" class="card-img-top" alt="" style="height: 300px;">
           <div class="card-body text-center">
-            <div class="text-dark text-uppercase mt-2 mb-4">
+            <div class="text-dark text-uppercase mt-2 mb-3">
               <?php echo $announcement['title']; ?>
             </div>
 
@@ -45,6 +45,19 @@
               ); ?>
             </div>
           </div>
+
+          <?php 
+            if(isset($_SESSION['emp_username'])) {
+              echo "
+              <div class='d-flex justify-content-center'>
+                <button class='remove-to-announcements btn btn-dark btn-md my-2' type='button'>
+                  Remove Announcement
+                  <i class='bi bi-chevron-right'></i>
+                </button>
+              </div>
+              ";
+            } 
+          ?>
         </div>
     <?php endforeach; ?>
   </div>

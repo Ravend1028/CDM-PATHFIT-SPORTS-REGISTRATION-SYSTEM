@@ -14,9 +14,12 @@
     <?php endif; ?>
   </div>
 
-  <div id="remove-btn-container">
+  <div id="event-btn-container">
     <?php foreach ($events as $event): ?>
-      <section class="event-section p-3 border border-black border-top-0 border-start-0 border-end-0" data-prod-id="<?php echo $event['id']; ?>">
+      <section class="event-section p-3 border border-black border-top-0 border-start-0 border-end-0" data-prod-id="<?php echo $event['id']; ?>" 
+        <?php if(isset($_SESSION['username'])) {
+         echo 'data-user-id="' . $_SESSION['username'] . '"'; 
+        }?>>
           <div class="container">
             <div class="row align-items-center justify-content-between">
               <div class="col-md">
@@ -47,7 +50,7 @@
                   if(isset($_SESSION['username'])) {
                     echo "
                     <div class='d-flex'>
-                      <button class='btn btn-dark btn-md my-2' type='button'>
+                      <button class='register-to-event btn btn-dark btn-md my-2' type='button'>
                         Register Now
                         <i class='bi bi-chevron-right'></i>
                       </button>

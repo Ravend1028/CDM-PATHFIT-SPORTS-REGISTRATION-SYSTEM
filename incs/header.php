@@ -47,7 +47,7 @@ session_start();
                   <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/events.php' class='nav-link'>Events</a>
                 </li>
                 <li class='nav-item'>
-                  <a href='#' class='nav-link'>$user</a>
+                  <a href='student_dashboard.php' class='nav-link'>$user</a>
                 </li>
                 <li class='nav-item'>
                   <a href='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/logout.php' class='nav-link'>Logout</a>
