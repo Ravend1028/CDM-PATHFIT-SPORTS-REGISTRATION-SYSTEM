@@ -49,20 +49,33 @@
         // Handle approval logic
         $sql = "UPDATE reg_list SET reg_status = 1 WHERE id = $regId";
         if ($conn->query($sql) === TRUE) {
-            echo "User has been approved successfully!";
+					http_response_code(204); // No content
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+					http_response_code(500); // Internal Server Error
         }
     } elseif ($action === 'reject') {
         // Handle rejection logic
         $sql = "UPDATE reg_list SET reg_status = 2 WHERE id = $regId";
         if ($conn->query($sql) === TRUE) {
-            echo "User has been rejected successfully!";
+					http_response_code(204); // No content
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+					http_response_code(500); // Internal Server Error
         }
     } else {
         echo "Invalid action specified.";
+    }
+	}
+
+	if(isset($_POST['cancel-id'])) {
+    $cancelId = $_POST['cancel-id'];
+    
+    $sql = "UPDATE reg_list SET reg_status = 0 WHERE id = $cancelId";
+    if($conn->query($sql) === TRUE) {
+        // Return a success status code
+        http_response_code(204); // No content
+    } else {
+        // Return an error status code
+        http_response_code(500); // Internal Server Error
     }
 	}
   // Close the connection

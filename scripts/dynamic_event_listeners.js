@@ -19,19 +19,32 @@ document.addEventListener("DOMContentLoaded", function() {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onload = function() {
-      if (xhr.status >= 200 && xhr.status < 300) {
-          // Handle success response
-          alert(xhr.responseText); // Alert the response from the server
-          console.log('Registration ' + action + 'd successfully');
-          // Optionally, update the UI or perform additional actions
-          window.location.reload(); // Reload the page
-      } else {
-          console.error('Request failed with status:', xhr.status);
-      }
-    };  
+        if (xhr.status === 204) {
+            // HTTP status code 204: No Content
+            alert('Registration ' + action + 'd successfully!');
+            // Optionally, update the UI or perform additional actions
+            const tbody = document.getElementById("table-body");
+            tbody.innerHTML = ""; // Clear the content of the tbody since there's no content
+        } else if (xhr.status >= 200 && xhr.status < 300) {
+            // Handle success response with content
+            const response = xhr.responseText.trim();
+            if (response === 'approve') {
+                alert('Registration approved successfully!');
+            } else if (response === 'reject') {
+                alert('Registration rejected successfully!');
+            } else {
+                alert('Unknown response received.');
+            }
+            const tbody = document.getElementById("table-body");
+            tbody.innerHTML = xhr.responseText; // Update the content of the tbody with the response
+        } else {
+            // Handle other HTTP status codes
+            console.error('Request failed with status:', xhr.status);
+        }
+    };
 
     xhr.onerror = function() {
-      console.error('Request Failed. Network Error.');
+        console.error('Request Failed. Network Error.');
     };
 
     // Send the registration ID and action in the request body

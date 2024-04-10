@@ -54,11 +54,11 @@
 							<thead>
 								<tr>
 									<th>Name</th>
-									<th>Date & Time</th>
+									<th>Registration Date & Time</th>
 									<th>Action</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="table-body">
 								<?php foreach ($registers as $register): ?>
 									<tr>
 										<td><?php echo $register['fullname']; ?></td>

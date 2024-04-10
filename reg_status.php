@@ -38,7 +38,7 @@
               <tr>
                 <th>Event Title</th>
                 <th>Registration Status</th>
-                <th>Date & Time</th>
+                <th>Registration Date & Time</th>
               </tr>
             </thead>
             <tbody>
