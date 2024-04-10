@@ -72,6 +72,12 @@
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+
+                     <!-- Add Print List button -->
+                     <button class="print-list-button btn btn-dark">
+                      Print List
+                      <i class="bi bi-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>

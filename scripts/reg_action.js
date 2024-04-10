@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
   const eventsContainer = document.getElementById('events-container');
-  
+
   eventsContainer.addEventListener('click', function(event) {
     if (event.target.classList.contains('check-registration')) {
       event.preventDefault(); // Prevent default anchor behavior
@@ -22,6 +22,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
       const registrationId = event.target.getAttribute('data-reg-id');
       cancelRegistration(registrationId);
+    }
+
+    // Add event listener for print button
+    if (event.target.classList.contains('print-list-button')) {
+      event.preventDefault(); // Prevent default button behavior
+      window.print(); // This will trigger the browser's print dialog
     }
   });
 

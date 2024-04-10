@@ -1,0 +1,10 @@
+/* CSS to hide buttons when printing */
+@media print {
+  /* print.css */
+  .cancel-button,
+  .print-list-button,
+  th:nth-child(3), /* Hide the third column header (Action) */
+  td:nth-child(3) { /* Hide the third column cells (Action) */
+    display: none;
+  }
+}
