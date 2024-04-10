@@ -12,21 +12,27 @@
     $registrationID = $_POST['reg-id'];
     // Define SQL query with search condition
     // Fetch event title along with registration names and date_time
-    $sql = "SELECT accounts.fullname, events.title, reg_list.date_time
+    $sql = "SELECT accounts.fullname, events.title, reg_list.date_time, reg_list.id
             FROM reg_list
             JOIN events ON reg_list.event_id = events.id
             JOIN accounts ON reg_list.username = accounts.username
-            WHERE reg_list.event_id = $registrationID";
+            WHERE reg_list.event_id = $registrationID AND reg_list.reg_status = 0";
 
     // Execute the SQL query
     $result = mysqli_query($conn, $sql);
 
     // Fetch all registrations based on the query result
     $registers = mysqli_fetch_all($result, MYSQLI_ASSOC);
-  }
 
-  // Close the connection
-  $conn->close();
+    // Close the connection
+    $conn->close();
+
+    // Format the date & time
+    foreach ($registers as &$register) {
+      $register['date_time'] = date('M d, Y \| h:i A', strtotime($register['date_time']));
+    }
+    unset($register); // Unset reference variable
+  }
 ?>
 
 	<div id="reglist-container" class="container">
@@ -58,9 +64,9 @@
 										<td><?php echo $register['fullname']; ?></td>
 										<td><?php echo $register['date_time']; ?></td>
 										<td>
-											<!-- Add approve/reject buttons here -->
-											<button class="btn btn-success me-1">Approve</button>
-											<button class="btn btn-danger ms-1">Reject</button>
+											<!-- Add approve/reject buttons here with data attribute -->
+											<button class="approve-button btn btn-success me-1" data-reg-id="<?php echo $register['id']; ?>">Approve</button>
+                      <button class="reject-button btn btn-danger ms-1" data-reg-id="<?php echo $register['id']; ?>">Reject</button>
 										</td>
 									</tr>
 								<?php endforeach; ?>
@@ -74,6 +80,5 @@
 			<p class='lead mt-3 text-center'>No one registered yet.</p>
 		<?php endif; ?>  
 	</div>
-
 
 

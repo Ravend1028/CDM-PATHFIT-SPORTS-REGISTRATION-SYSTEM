@@ -38,7 +38,8 @@
           <div class="card-body text-center">
             <?php echo $event['title']; ?>
             <div class="text-dark mt-2"><?php echo $event['body']; ?></div>
-            <a href="/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/manage_user.php" class="check-registration btn btn-primary mt-2">Check Registration <i class="bi bi-chevron-right"></i></a>
+            <a href="/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/manage_user.php" class="check-registration btn btn-dark mt-2">Check Registration <i class="bi bi-chevron-right"></i></a>
+            <button class="remove-to-cart btn btn-dark btn-link mt-2">Qualified Entries</button>
           </div>
         </div>
       </div>

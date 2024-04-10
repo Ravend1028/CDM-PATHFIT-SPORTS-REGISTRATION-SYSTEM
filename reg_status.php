@@ -3,20 +3,26 @@
 <?php
   $username = $_SESSION['username'];
 
-  $sql = "SELECT reg_list.username, events.title, reg_list.reg_status,  reg_list.date_time
+  $sql = "SELECT reg_list.username, events.title, reg_list.reg_status, reg_list.date_time
           FROM reg_list 
           JOIN events ON reg_list.event_id = events.id
           JOIN accounts ON reg_list.username = accounts.username
           WHERE reg_list.username = '$username'";
 
-    // Execute the SQL query
-    $result = mysqli_query($conn, $sql);
+  // Execute the SQL query
+  $result = mysqli_query($conn, $sql);
 
-    // Fetch all registrations based on the query result
-    $regList = mysqli_fetch_all($result, MYSQLI_ASSOC);
+  // Fetch all registrations based on the query result
+  $regList = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
   // Close the connection
   $conn->close();
+
+  // Format the date & time
+  foreach ($regList as &$registration) {
+    $registration['date_time'] = date('M d, Y \| h:i A', strtotime($registration['date_time']));
+  }
+  unset($registration); // Unset reference variable
 ?>
 
   <!-- Generate table -->
@@ -39,7 +45,9 @@
               <?php foreach ($regList as $registration) : ?>
                 <tr>
                   <td><?php echo $registration['title']; ?></td>
-                  <td><?php echo $registration['reg_status']; ?></td>
+                  <td class="<?php echo $registration['reg_status'] == 0 ? 'text-primary' : ($registration['reg_status'] == 1 ? 'text-success' : 'text-danger'); ?>">
+                    <?php echo $registration['reg_status'] == 0 ? 'Pending' : ($registration['reg_status'] == 1 ? 'Accepted' : 'Not Accepted'); ?>
+                  </td>
                   <td><?php echo $registration['date_time']; ?></td>
                 </tr>
               <?php endforeach; ?>

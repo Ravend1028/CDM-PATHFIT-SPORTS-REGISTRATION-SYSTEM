@@ -8,7 +8,7 @@
 
   <div class="container d-flex flex-column justify-content-center align-items-center p-4">
     <h2>Events</h2>
-
+    
     <?php if (empty($events)): ?>
       <p class="lead mt-3">There is no event</p>
     <?php endif; ?>

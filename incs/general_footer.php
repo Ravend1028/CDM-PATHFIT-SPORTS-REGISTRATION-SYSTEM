@@ -4,5 +4,6 @@
   <script src="scripts/reg_action.js"></script>
   <script src="scripts/events_action.js"></script>
   <script src="scripts/announcements_action.js"></script>
+  <script src="scripts/dynamic_event_listeners.js"></script>
 </body>
 </html>
