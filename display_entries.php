@@ -23,19 +23,7 @@
 
     // Fetch all registrations based on the query result
     $registers = mysqli_fetch_all($result, MYSQLI_ASSOC);
-  } else {
-    // Fetch event title along with registration names for all events (or handle this case differently as needed)
-    $sql = "SELECT accounts.fullname, events.title
-            FROM reg_list
-            JOIN events ON reg_list.event_id = events.id
-            JOIN accounts ON reg_list.username = accounts.username";
-
-            // Execute the SQL query
-    $result = mysqli_query($conn, $sql);
-
-    // Fetch all registrations based on the query result
-    $registers = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
+  }
 
   // Close the connection
   $conn->close();

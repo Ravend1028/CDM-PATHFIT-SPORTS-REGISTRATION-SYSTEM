@@ -39,5 +39,5 @@
     <div class="shadow-overlay position-absolute w-100 h-100" style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px);"></div>
   </section>
 
-<?php include 'incs/footer.php'; ?>
+<?php include 'incs/general_footer.php'; ?>
   

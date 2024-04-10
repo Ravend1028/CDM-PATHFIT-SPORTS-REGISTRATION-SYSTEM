@@ -51,4 +51,4 @@
     </div>
   </div>
 
-<?php include 'incs/footer.php' ?>
+<?php include 'incs/general_footer.php'; ?>
