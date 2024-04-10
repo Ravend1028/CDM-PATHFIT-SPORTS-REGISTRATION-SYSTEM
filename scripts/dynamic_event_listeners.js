@@ -22,9 +22,11 @@ document.addEventListener("DOMContentLoaded", function() {
         if (xhr.status === 204) {
             // HTTP status code 204: No Content
             alert('Registration ' + action + 'd successfully!');
-            // Optionally, update the UI or perform additional actions
-            const tbody = document.getElementById("table-body");
-            tbody.innerHTML = ""; // Clear the content of the tbody since there's no content
+            // Remove the table row
+            const rowToRemove = document.getElementById("table-row-" + regId);
+            if (rowToRemove) {
+                rowToRemove.remove();
+            }
         } else if (xhr.status >= 200 && xhr.status < 300) {
             // Handle success response with content
             const response = xhr.responseText.trim();
@@ -35,8 +37,6 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 alert('Unknown response received.');
             }
-            const tbody = document.getElementById("table-body");
-            tbody.innerHTML = xhr.responseText; // Update the content of the tbody with the response
         } else {
             // Handle other HTTP status codes
             console.error('Request failed with status:', xhr.status);

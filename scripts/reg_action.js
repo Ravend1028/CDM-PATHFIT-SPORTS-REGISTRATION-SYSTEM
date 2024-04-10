@@ -72,21 +72,23 @@ document.addEventListener("DOMContentLoaded", function() {
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "req_handler.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
+  
     xhr.onload = function() {
       if (xhr.status >= 200 && xhr.status < 300) {
         alert('Registration cancelled successfully'); // Alert the response from the server
-        const tbody = document.getElementById("table-body"); // Get the tbody element
-        tbody.innerHTML = xhr.responseText; // Update the content of the tbody with the response
+        const rowToRemove = document.getElementById("table-row-" + registrationId); // Get the table row element
+        if (rowToRemove) {
+          rowToRemove.remove(); // Remove the table row
+        }
       } else {
         console.error('Request failed with status:', xhr.status);
       }
     };
-
+  
     xhr.onerror = function() {
       console.error('Request Failed. Network Error.');
     };
-
+  
     // Send the registration ID in the request body
     xhr.send("cancel-id=" + encodeURIComponent(registrationId));
   }

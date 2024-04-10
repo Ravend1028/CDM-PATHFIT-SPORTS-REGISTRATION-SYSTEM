@@ -58,9 +58,9 @@
 									<th>Action</th>
 								</tr>
 							</thead>
-							<tbody id="table-body">
+							<tbody>
 								<?php foreach ($registers as $register): ?>
-									<tr>
+									<tr id="table-row-<?php echo $register['id']; ?>">
 										<td><?php echo $register['fullname']; ?></td>
 										<td><?php echo $register['date_time']; ?></td>
 										<td>
