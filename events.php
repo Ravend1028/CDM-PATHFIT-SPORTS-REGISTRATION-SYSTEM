@@ -16,7 +16,7 @@
 
   <div id="event-btn-container">
     <?php foreach ($events as $event): ?>
-      <section class="event-section p-3 border border-black border-top-0 border-start-0 border-end-0" data-prod-id="<?php echo $event['id']; ?>" 
+      <section class="event-section p-3 border border-black border-top-0 border-start-0 border-end-0"
         <?php if(isset($_SESSION['username'])) {
          echo 'data-user-id="' . $_SESSION['username'] . '"'; 
         }?>>
@@ -50,7 +50,7 @@
                   if(isset($_SESSION['username'])) {
                     echo "
                     <div class='d-flex'>
-                      <button class='register-to-event btn btn-dark btn-md my-2' type='button'>
+                      <button class='register-to-events btn btn-dark btn-md my-2' type='button' data-bs-toggle='modal' data-bs-target='#registrationModal'>
                         Register Now
                         <i class='bi bi-chevron-right'></i>
                       </button>
@@ -74,5 +74,48 @@
       </section>      
     <?php endforeach; ?>
   </div>
+
+  <div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="registrationModalLabel">Registration Form</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- INSERTING TO DB PROCESS - not done -->
+          <form method="POST" action="reg_handler.php" data-prod-id="<?php echo $event['id']; ?>" >
+            <div class="mb-3">
+              <label for="fullName" class="form-label">Full Name</label>
+              <input type="text" name="fullname" class="form-control" id="fullName" placeholder="Enter your full name">
+            </div>
+            <div class="mb-3">
+              <label for="studentNumber" class="form-label">Student Number</label>
+              <input type="text" name="studNumber" class="form-control" id="studNum" placeholder="Enter your student number">
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+              <label for="medcert" class="form-label">Medical Certificate</label>
+              <input type="file" name="medcert" class="form-control" id="medCert" placeholder="Upload your medcert">
+            </div>
+            <div class="mb-3">
+              <label for="medcert" class="form-label">Certificate of Grades</label>
+              <input type="file" name="cog" class="form-control" id="certGrade" placeholder="Upload your COG">
+            </div>
+              <input type="hidden" name="event_id" id="prodIdInput">
+              <input type="hidden" name="username" id="userName">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-dark">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 <?php include 'incs/general_footer.php'; ?>
