@@ -118,7 +118,7 @@
       ?>>
           <div class="container">
             <div class="row align-items-center justify-content-between">
-              <div class="col-md">
+              <div class="col-md d-flex justify-content-center">
                 <?php
                 // Check if product image is availables
                 if (!empty($event['image'])) {
@@ -133,12 +133,12 @@
                 ?>
                 <img src="<?php echo $imgSrc; ?>" class="card-img-top" alt="" style="height: 250px;">
               </div>
-              <div class="col-md p-5">
+              <div class="col-md p-5 text-center d-flex flex-column justify-content-center align-items-center">
                 <div class="text-dark text-uppercase mt-2 mb-3">
                   <?php echo $event['title']; ?>
                 </div>
 
-                <div class="text-dark mt-2 mb-3">
+                <div class="text-dark mb-4">
                   <?php echo $event['body']; ?>
                 </div>
                 

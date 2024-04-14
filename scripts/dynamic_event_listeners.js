@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", function() {
     } else if (event.target.classList.contains('reject-button')) {
       const regId = event.target.getAttribute('data-reg-id');
       updateRegistration(regId, 'reject');
+    } else if (event.target.classList.contains('reqImg')) {
+      const imageUrl = event.target.getAttribute('src');
+      showModal(imageUrl);
     }
   });
 
@@ -37,10 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 alert('Unknown response received.');
             }
-        } else {
-            // Handle other HTTP status codes
-            console.error('Request failed with status:', xhr.status);
-        }
+        } 
     };
 
     xhr.onerror = function() {
@@ -50,4 +50,34 @@ document.addEventListener("DOMContentLoaded", function() {
     // Send the registration ID and action in the request body
     xhr.send("reg-status=" + encodeURIComponent(regId) + "&action=" + encodeURIComponent(action));
   }
+
+  function showModal(imageUrl) {
+    const modalBody = `
+      <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center align-items-center">
+              <img src="${imageUrl}" alt="Image Preview" class="img-fluid w-50">
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  
+    // Append modal to body
+    document.body.insertAdjacentHTML('beforeend', modalBody);
+  
+    // Show the modal
+    const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+    imageModal.show();
+  
+    // Remove modal from DOM after it's hidden
+    imageModal._element.addEventListener('hidden.bs.modal', function() {
+      document.getElementById('imageModal').remove();
+    });
+  }  
 });

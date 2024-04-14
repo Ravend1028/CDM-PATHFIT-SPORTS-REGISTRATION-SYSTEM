@@ -4,10 +4,10 @@
   <section class="p-4 border border-black border-top-0 border-start-0 border-end-0">
     <div class="container">
       <div class="row align-items-center justify-content-between">
-        <div class="col-md">
+        <div class="col-md d-flex justify-content-center">
           <img src="images/MS_KAZEL_PIC.jpg" class="img-fluid rounded" alt="kazel_dantes" style="height: 250px;"/>
         </div>
-        <div class="col-md p-5">
+        <div class="col-md p-5 text-center">
           <h2>Ms. Kazel Dantes, MPES</h2>
           <p class="lead">
             kazeldantes123@gmail.com
@@ -20,10 +20,10 @@
   <section class="p-4 border border-black border-top-0 border-start-0 border-end-0">
     <div class="container">
       <div class="row align-items-center justify-content-between">
-        <div class="col-md">
+        <div class="col-md d-flex justify-content-center">
           <img src="images/SIR_DONN_PIC.jpg" class="img-fluid rounded" alt="kazel_dantes" style="height: 250px;"/>
         </div>
-        <div class="col-md p-5">
+        <div class="col-md p-5 text-center">
           <h2>Dr. Orlando Lingo, CpE</h2>
           <p class="lead">
             omlingo@cdm.edu.ph
