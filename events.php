@@ -4,6 +4,98 @@
   $sql = 'SELECT * FROM events';
   $result = mysqli_query($conn, $sql);
   $events = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+  $studentNumber = $email = $medicalCert = $certOfGrade = $eventID = $userID = '';
+  $studentNumberErr = $emailErr = $medicalCertErr = $certOfGradeErr = '';
+
+  if(isset($_POST['submit'])) {
+ 
+    $eventID = $_POST['eventId'];
+    $userID = $_POST['userId'];
+   
+    if(empty($_POST['studNumber'])) {
+      $studentNumberErr = 'Student number is required';
+    } else {
+      $studentNumber = filter_input(
+        INPUT_POST,
+        'studNumber',
+        FILTER_SANITIZE_FULL_SPECIAL_CHARS
+      );
+    }
+
+    if(empty($_POST['email'])) {
+      $emailErr = 'Email is required';
+    } else {
+      $email = filter_input(
+        INPUT_POST,
+        'email',
+        FILTER_SANITIZE_EMAIL
+      );
+    }
+
+    if(empty($_FILES['medcert']['name'])) {
+      $imageErr = 'Image is required';
+    } else {
+        // Check if there was an error during file upload
+        if($_FILES['medcert']['error'] === UPLOAD_ERR_OK) {
+            // Check if the uploaded file is an image
+            $allowedTypes = array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF);
+            $detectedType = exif_imagetype($_FILES['medcert']['tmp_name']);
+            if(!in_array($detectedType, $allowedTypes)) {
+                $medicalCertErr = 'Error: Only PNG, JPEG, and GIF images are allowed';
+            } else {
+                // Read the contents of the image file
+                $medicalCert = file_get_contents($_FILES['medcert']['tmp_name']);
+                // Check if the file size is not zero
+                if($_FILES['medcert']['size'] == 0) {
+                    $medicalCertErr = 'Error: Empty file uploaded';
+                }
+            }
+        } else {
+            $medicalCertErr = 'Error uploading image';
+        }
+    }
+
+    if(empty($_FILES['cog']['name'])) {
+      $certOfGradeErr = 'Image is required';
+    } else {
+        // Check if there was an error during file upload
+        if($_FILES['cog']['error'] === UPLOAD_ERR_OK) {
+            // Check if the uploaded file is an image
+            $allowedTypes = array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF);
+            $detectedType = exif_imagetype($_FILES['cog']['tmp_name']);
+            if(!in_array($detectedType, $allowedTypes)) {
+                $certOfGradeErr = 'Error: Only PNG, JPEG, and GIF images are allowed';
+            } else {
+                // Read the contents of the image file
+                $certOfGrade = file_get_contents($_FILES['cog']['tmp_name']);
+                // Check if the file size is not zero
+                if($_FILES['cog']['size'] == 0) {
+                    $certOfGradeErr = 'Error: Empty file uploaded';
+                }
+            }
+        } else {
+            $certOfGradeErr = 'Error uploading image';
+        }
+    }
+
+		if (empty($studentNumberErr) && empty($emailErr) && empty($medicalCertErr) && empty($certOfGradeErr)) {
+      $sql = "INSERT INTO reg_list (event_id, username, student_no, email, medcert, cog) VALUES (?, ?, ?, ?, ?, ?)";
+      // Prepare the statement
+      $stmt = mysqli_prepare($conn, $sql);
+      // Bind parameters to the statement
+      mysqli_stmt_bind_param($stmt, "ssssss", $eventID, $userID, $studentNumber, $email, $medicalCert, $certOfGrade);
+      // Execute the statement
+      if (mysqli_stmt_execute($stmt)) {
+          echo "<script>alert('Registered Successfully!'); window.location='/CDM-PATHFIT-SPORTS-REGISTRATION-SYSTEM/events.php';</script>";
+      } else {
+          // Error handling
+          echo 'Error: ' . mysqli_error($conn);
+      }
+      // Close the statement
+      mysqli_stmt_close($stmt);  
+    }
+	}
 ?>
 
   <div class="container d-flex flex-column justify-content-center align-items-center p-4">
@@ -16,10 +108,14 @@
 
   <div id="event-btn-container">
     <?php foreach ($events as $event): ?>
-      <section class="event-section p-3 border border-black border-top-0 border-start-0 border-end-0"
-        <?php if(isset($_SESSION['username'])) {
-         echo 'data-user-id="' . $_SESSION['username'] . '"'; 
-        }?>>
+      <section class="event-section p-3 border border-black border-top-0 border-start-0 border-end-0" 
+      <?php 
+        if(isset($_SESSION['username'])) {
+            echo '
+            data-prod-id="' . $event['id'] . '"
+            data-user-id="' . $_SESSION['username'] . '"';
+        } 
+      ?>>
           <div class="container">
             <div class="row align-items-center justify-content-between">
               <div class="col-md">
@@ -50,7 +146,7 @@
                   if(isset($_SESSION['username'])) {
                     echo "
                     <div class='d-flex'>
-                      <button class='register-to-events btn btn-dark btn-md my-2' type='button' data-bs-toggle='modal' data-bs-target='#registrationModal'>
+                      <button class='register-to-event btn btn-dark btn-md my-2' type='button' data-bs-toggle='modal' data-bs-target='#registrationModal'>
                         Register Now
                         <i class='bi bi-chevron-right'></i>
                       </button>
@@ -82,13 +178,10 @@
           <h5 class="modal-title" id="registrationModalLabel">Registration Form</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <!-- INSERTING TO DB PROCESS - not done -->
-          <form method="POST" action="reg_handler.php" data-prod-id="<?php echo $event['id']; ?>" >
-            <div class="mb-3">
-              <label for="fullName" class="form-label">Full Name</label>
-              <input type="text" name="fullname" class="form-control" id="fullName" placeholder="Enter your full name">
-            </div>
+        <div class="modal-body" >
+          <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data">
+            <input type="hidden" name="eventId" id="eventId">
+            <input type="hidden" name="userId" id="userId">
             <div class="mb-3">
               <label for="studentNumber" class="form-label">Student Number</label>
               <input type="text" name="studNumber" class="form-control" id="studNum" placeholder="Enter your student number">
@@ -105,17 +198,16 @@
               <label for="medcert" class="form-label">Certificate of Grades</label>
               <input type="file" name="cog" class="form-control" id="certGrade" placeholder="Upload your COG">
             </div>
-              <input type="hidden" name="event_id" id="prodIdInput">
-              <input type="hidden" name="username" id="userName">
+            <input type="hidden" name="event_id" id="regEventId">
+            <input type="hidden" name="username" id="regUsername">
+            <div class="modal-footer pb-0">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" name="submit" class="btn btn-dark">Submit</button>
+            </div>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-dark">Submit</button>
         </div>
       </div>
     </div>
   </div>
-
 
 <?php include 'incs/general_footer.php'; ?>

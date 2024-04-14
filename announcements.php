@@ -14,7 +14,7 @@
     <?php endif; ?>
 
     <?php foreach ($announcements as $announcement): ?>
-        <div class="card my-3 w-50" data-prod-id="<?php echo $announcement['id']; ?>">
+        <div class="card my-3" data-prod-id="<?php echo $announcement['id']; ?>">
           <?php
             // Check if product image is availables
             if (!empty($announcement['image'])) {
