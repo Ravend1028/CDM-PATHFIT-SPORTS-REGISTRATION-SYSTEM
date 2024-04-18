@@ -107,12 +107,12 @@
   </div>
 
   <div id="event-btn-container">
-    <?php foreach ($events as $event): ?>
+    <?php foreach ($events as $event): ?>                                  
       <section class="event-section p-3 border border-black border-top-0 border-start-0 border-end-0" 
+      data-prod-id = "<?php echo $event['id']; ?>"
       <?php 
         if(isset($_SESSION['username'])) {
             echo '
-            data-prod-id="' . $event['id'] . '"
             data-user-id="' . $_SESSION['username'] . '"';
         } 
       ?>>
