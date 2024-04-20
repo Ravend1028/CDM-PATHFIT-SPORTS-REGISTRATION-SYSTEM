@@ -16,6 +16,13 @@ document.addEventListener("DOMContentLoaded", function() {
       checkQualified(registrationId);
     }
 
+    if(event.target.classList.contains('check-rejected') || event.target.parentElement.classList.contains('check-rejected')) {
+      event.preventDefault(); // Prevent default button behavior
+
+      const registrationId = event.target.closest('.card').getAttribute('data-event-id');
+      checkRejected(registrationId);
+    }
+
     // Add event listener for cancel button
     if(event.target.classList.contains('cancel-button')) {
       event.preventDefault(); // Prevent default button behavior
@@ -97,6 +104,27 @@ document.addEventListener("DOMContentLoaded", function() {
   
     // Send the registration ID in the request body
     xhr.send("cancel-id=" + encodeURIComponent(registrationId));
+  }
+
+  function checkRejected(registrationId) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "display_rejected.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.onload = function() {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        document.getElementById("events-container").innerHTML = xhr.responseText;
+      } else {
+        console.error('Request failed with status:', xhr.status);
+      }
+    };
+
+    xhr.onerror = function() {
+      console.error('Request Failed. Network Error.');
+    };
+
+    // Send the registration ID in the request body
+    xhr.send("reg-id=" + encodeURIComponent(registrationId));
   }
 });
 

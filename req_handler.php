@@ -53,7 +53,7 @@
         } else {
 					http_response_code(500); // Internal Server Error
         }
-    } elseif ($action === 'reject') {
+    } elseif ($action === 'rejecte') {
         // Handle rejection logic
         $sql = "UPDATE reg_list SET reg_status = 2 WHERE id = $regId";
         if ($conn->query($sql) === TRUE) {

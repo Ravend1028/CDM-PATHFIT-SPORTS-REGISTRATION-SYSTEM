@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
       updateRegistration(regId, 'approve');
     } else if (event.target.classList.contains('reject-button')) {
       const regId = event.target.getAttribute('data-reg-id');
-      updateRegistration(regId, 'reject');
+      updateRegistration(regId, 'rejecte');
     } else if (event.target.classList.contains('reqImg')) {
       const imageUrl = event.target.getAttribute('src');
       showModal(imageUrl);
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const response = xhr.responseText.trim();
             if (response === 'approve') {
                 alert('Registration approved successfully!');
-            } else if (response === 'reject') {
+            } else if (response === 'rejecte') {
                 alert('Registration rejected successfully!');
             } else {
                 alert('Unknown response received.');

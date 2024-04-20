@@ -39,7 +39,8 @@
             <?php echo $event['title']; ?>
             <div class="text-dark mt-2"><?php echo $event['body']; ?></div>
             <a href="#" class="check-registration btn btn-dark mt-2">Check Registration <i class="bi bi-chevron-right"></i></a>
-            <button class="check-qualified btn btn-dark btn-link mt-2">Qualified Entries</button>
+            <button class="check-qualified btn btn-warning btn-link mt-2">Qualified Entries</button>
+            <button class="check-rejected btn btn-warning btn-link p-0">Rejected Entries</button>
           </div>
         </div>
       </div>
